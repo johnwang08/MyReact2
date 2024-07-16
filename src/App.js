@@ -10,6 +10,9 @@ function App() {
        
         This is react app it will be deployed automatically to MySWA via ci/cd.
    
+        <a href="/.auth/me">Me</a>&nbsp;|&nbsp;
+        <a href="/.auth/logout">Log out</a>
+        
       </header>
     </div>
   );
