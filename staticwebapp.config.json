@@ -1,58 +1,45 @@
 {
-    "auth": {
-      "identityProviders": {
-        "azureActiveDirectory": {
-          "registration": {
-            "openIdIssuer": "https://login.microsoftonline.com/d41747fa-a6eb-41cf-9e6e-0ee7860dc8da/v2.0",
-            "clientIdSettingName": "CLIENTID",
-            "clientSecretSettingName": "CLIENTSECRET"
-          }
-        }
-      }
+  "routes": [
+    {
+      "route": "/.auth/me",
+      "statusCode": 404
     },
-    "routes": [
-      {
-        "route": "/.auth/login/github",
-        "statusCode": 404
-      },
-      {
-        "route": "/.auth/login/aad",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/.auth/logout",
-        "redirect": "/.auth/login/aad",
-        "statusCode": 302
-      },
-      {
-        "route": "/.auth/me",
-        "allowedRoles": ["authenticated"]
-      },
-      {
-        "route":  "/*",
-        "methods":["PUT", "POST", "PATCH", "DELETE", "TRACE", "CONNECT"],
-        "statusCode": 403
-      },
-      {
-        "route": "/*",
-        "allowedRoles": ["authenticated"]
-      }
-    ],
-    "responseOverrides": {
-      "401": {
-        "redirect": "/.auth/login/aad",
-        "statusCode": 302
-      }
+    {
+      "route": "/.auth/login/aad",
+      "statusCode": 404
     },
-    "globalHeaders": {
-      "Cache-Control": "no-store, must-revalidate, max-age=0",
-      "Pragma": "no-cache",
-      "Expires": "0",
-      "X-Frame-Options": "DENY",
-      "X-Content-Type-Options":"nosniff",
-      "Strict-Transport-Security": "max-age=15768000; includeSubDomains",
-      "X-Robots-Tag": "noindex, nofollow",
-      "X-XSS-Protection": 0,
-      "Referrer-Policy": "strict-origin-when-cross-origin"
+    {
+      "route": "/.auth/login/facebook",
+      "statusCode": 404
+    },
+    {
+      "route": "/.auth/login/github",
+      "statusCode": 404
+    },
+    {
+      "route": "/.auth/login/google",
+      "statusCode": 404
+    },
+    {
+      "route": "/.auth/login/twitter",
+      "statusCode": 404
+    },
+    {
+      "route":  "/*",
+      "methods":["PUT", "POST", "PATCH", "DELETE", "TRACE", "CONNECT"],
+      "statusCode": 403
     }
+  ],
+  "navigationFallback": {
+    "rewrite": "index.html",
+    "exclude": ["*.{svg,png,jpg,gif}","*.{css,scss}","*.js"]
+  },
+  "globalHeaders": {
+    "X-Frame-Options": "DENY",
+    "X-Content-Type-Options":"nosniff",
+    "Strict-Transport-Security": "max-age=15768000; includeSubDomains",
+    "X-Robots-Tag": "noindex, nofollow",
+    "X-XSS-Protection": 0,
+    "Referrer-Policy": "strict-origin-when-cross-origin"
   }
+}
